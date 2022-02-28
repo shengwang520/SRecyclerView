@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SRecyclerView">
+        <attr name="layout_empty" format="reference" />
+        <attr name="layout_progress" format="reference" />
+        <attr name="layout_error" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SlideBar">
+        <attr name="s_text_size" format="dimension" />
+        <attr name="s_text_color" format="color" />
+        <attr name="s_text_select_color" format="color" />
+        <attr name="s_BackgroundColor" format="color" />
+        <attr name="s_select_style" format="enum">
+            <enum name="NONE" value="0" />
+            <enum name="OVAL" value="1" />
+            <enum name="CIRCLE" value="2" />
+            <enum name="STRETCH" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>
