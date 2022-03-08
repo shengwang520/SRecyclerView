@@ -344,6 +344,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
 
         if (mEventDelegate != null) {
             if (elements.isEmpty()) {//当没有数据时，自动显示空布局
+                showEmpty()
                 if (mNotifyOnChange) notifyItemChanged(0)
             } else {
                 if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
