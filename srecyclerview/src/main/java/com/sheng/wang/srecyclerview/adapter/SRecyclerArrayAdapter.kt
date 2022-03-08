@@ -4,9 +4,11 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.orhanobut.logger.Logger
+
 
 /**
  * 数据通用适配器
@@ -189,6 +191,49 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         val count = headers.size
         headers.clear()
         notifyItemRangeRemoved(0, count)
+    }
+
+    /**
+     * 移除底部布局
+     */
+    fun removeAllFooter() {
+        val count = footers.size
+        footers.clear()
+        notifyItemRangeRemoved(itemCount - count, itemCount)
+    }
+
+    /**
+     * 移除布局
+     */
+    fun removeFooter(view: SCallback.ItemView?) {
+        if (view != null) {
+            val index = footers.indexOf(view)
+            footers.remove(view)
+            notifyItemRemoved(itemCount + index)
+        }
+    }
+
+    inner class GridSpanSizeLookup(private val mMaxCount: Int) : SpanSizeLookup() {
+
+        override fun getSpanSize(position: Int): Int {
+            if (headers.size != 0) {
+                if (position < headers.size) return mMaxCount
+            }
+            if (footers.size != 0) {
+                val i: Int = position - headers.size - mData.size
+                if (i >= 0) {
+                    return mMaxCount
+                }
+            }
+            return 1
+        }
+    }
+
+    /**
+     * 适配网格Header和Footer 布局
+     */
+    open fun obtainGridSpanSizeLookUp(maxCount: Int): GridSpanSizeLookup {
+        return GridSpanSizeLookup(maxCount)
     }
 
     /**

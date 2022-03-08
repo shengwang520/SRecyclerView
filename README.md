@@ -10,5 +10,9 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Changelog
 
+### Version:1.0.02
+* 新增GridLayoutManager头部和底部布局显示效果
+* 优化列表底部布局操作方法
+
 ### Version:1.0.01
 * 首次发布
