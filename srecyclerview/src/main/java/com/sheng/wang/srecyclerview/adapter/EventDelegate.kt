@@ -42,6 +42,11 @@ interface EventDelegate {
     fun showNoMore()
 
     /**
+     * 显示空数据布局
+     */
+    fun showEmpty()
+
+    /**
      * 设置加载 更多
      *
      * @param res      加载更多布局
@@ -56,4 +61,10 @@ interface EventDelegate {
      * @param listener 回调
      */
     fun setNoMore(res: Int, listener: SCallback.OnNoMoreListener?)
+
+    /**
+     * 设置空数据
+     * @param res 空数据布局
+     */
+    fun setEmpty(res: Int)
 }

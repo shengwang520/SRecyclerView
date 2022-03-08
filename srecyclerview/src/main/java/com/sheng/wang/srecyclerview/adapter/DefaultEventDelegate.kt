@@ -16,6 +16,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
     private var isLoadingMore = false
     private var hasMore = false
     private var hasNoMore = false
+    private var hasEmpty = false
     private var status = STATUS_INITIAL
 
     override fun addData(length: Int) {
@@ -34,6 +35,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
                 status = STATUS_NO_MORE
             }
         }
+
         isLoadingMore = false
     }
 
@@ -81,6 +83,12 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
         isLoadingMore = false
     }
 
+    override fun showEmpty() {
+        if (hasEmpty) {
+            footer.showEmpty()
+        }
+    }
+
     override fun setMore(res: Int, listener: SCallback.OnLoadMoreListener?) {
         footer.setMoreViewRes(res)
         this.onLoadMoreListener = listener
@@ -95,6 +103,11 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
         footer.setNoMoreViewRes(res)
         this.onNoMoreListener = listener
         hasNoMore = true
+    }
+
+    override fun setEmpty(res: Int) {
+        footer.setEmptyViewRes(res)
+        hasEmpty = true
     }
 
     /**
@@ -134,6 +147,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
     inner class EventFooter : SCallback.ItemView {
         private var moreViewRes = 0
         private var noMoreViewRes = 0
+        private var emptyViewRes = 0
         private var flag = Hide
         private var skipNoMore = false
         override fun onCreateView(parent: ViewGroup): View {
@@ -172,6 +186,12 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
                     }
                     view?.setOnClickListener { onNoMoreViewClicked() }
                 }
+                ShowEmpty -> {
+                    if (emptyViewRes != 0) {
+                        view = LayoutInflater.from(parent!!.context)
+                            .inflate(emptyViewRes, parent, false)
+                    }
+                }
             }
             if (view == null) view = FrameLayout(parent!!.context)
             return view
@@ -192,6 +212,14 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
             Logger.d("SDataObserver showNoMore")
             skipNoMore = true
             flag = ShowNoMore
+            if (adapter.itemCount > 0) adapter.notifyItemChanged(adapter.itemCount - 1)
+        }
+
+        /**
+         * 显示空布局
+         */
+        fun showEmpty() {
+            flag = ShowEmpty
             if (adapter.itemCount > 0) adapter.notifyItemChanged(adapter.itemCount - 1)
         }
 
@@ -217,6 +245,13 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
             this.noMoreViewRes = noMoreViewRes
         }
 
+        /**
+         * 设置空数据布局id
+         */
+        fun setEmptyViewRes(emptyViewRes: Int) {
+            this.emptyViewRes = emptyViewRes
+        }
+
         override fun hashCode(): Int {
             return flag + 13589
         }
@@ -229,6 +264,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
 
             if (moreViewRes != other.moreViewRes) return false
             if (noMoreViewRes != other.noMoreViewRes) return false
+            if (emptyViewRes != other.emptyViewRes) return false
             if (flag != other.flag) return false
             if (skipNoMore != other.skipNoMore) return false
 
@@ -246,6 +282,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
         private const val Hide = 0
         private const val ShowMore = 1
         private const val ShowNoMore = 2
+        private const val ShowEmpty = 3
     }
 
     init {

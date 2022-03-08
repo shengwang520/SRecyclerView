@@ -59,6 +59,7 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
         Logger.d("SDataObserver update:$count")
         if (count == 0) {
             recyclerView.showEmpty()
+            adapter?.showEmpty()
         } else {
             recyclerView.showRecycler()
         }

@@ -265,6 +265,13 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     }
 
     /**
+     * 显示空布局
+     */
+    fun showEmpty() {
+        mEventDelegate?.showEmpty()
+    }
+
+    /**
      * 设置更多布局
      */
     fun setMore(res: Int, listener: SCallback.OnLoadMoreListener?) {
@@ -284,6 +291,14 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     fun setNoMore(res: Int, listener: SCallback.OnNoMoreListener?) {
         eventDelegate.setNoMore(res, listener)
     }
+
+    /**
+     * 设置空数据布局，设置后在没有数据时会自动显示
+     */
+    fun setEmpty(res: Int) {
+        eventDelegate.setEmpty(res)
+    }
+
 
     /**
      * 添加单个数据/刷新界面
