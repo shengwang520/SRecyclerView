@@ -336,9 +336,14 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
             elements = ArrayList()
         }
 
+
         if (mEventDelegate != null) {
-            if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
-                mEventDelegate?.showNoMore()
+            if (elements.isEmpty()) {//当没有数据时，自动显示空布局
+                mEventDelegate?.showEmpty()
+            } else {
+                if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
+                    mEventDelegate?.showNoMore()
+                }
             }
         } else {
             if (elements.isEmpty()) {//当数据为0时，更新适配器显示显示没有数据布局
