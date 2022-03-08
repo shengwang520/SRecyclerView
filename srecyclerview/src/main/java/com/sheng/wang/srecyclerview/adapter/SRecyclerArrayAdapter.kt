@@ -1,5 +1,6 @@
 package com.sheng.wang.srecyclerview.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -327,6 +328,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
      * 替换数据更新
      * @param collection T :SData 数据实体需要继承SData
      */
+    @SuppressLint("NotifyDataSetChanged")
     fun replace(collection: Collection<T>?) {
         Logger.d("SDataObserver replace")
         mEventDelegate?.addData(collection?.size ?: 0)
@@ -345,7 +347,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         if (mEventDelegate != null) {
             if (elements.isEmpty()) {//当没有数据时，自动显示空布局
                 showEmpty()
-                if (mNotifyOnChange) notifyItemChanged(0)
+                if (mNotifyOnChange) notifyDataSetChanged()
             } else {
                 if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
                     mEventDelegate?.showNoMore()
@@ -400,6 +402,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     /**
      * 触发清空
      */
+    @SuppressLint("NotifyDataSetChanged")
     fun clear() {
         mEventDelegate?.clear()
         synchronized(mLock) { mData.clear() }

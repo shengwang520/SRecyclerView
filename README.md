@@ -9,6 +9,9 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 * api 'com.github.shengwang520:SRecyclerView:1.0.05'
 
 ## Changelog
+### Version:1.0.07
+* 优化空数据刷新逻辑
+
 ### Version:1.0.06
 * 优化空数据布局显示
 
