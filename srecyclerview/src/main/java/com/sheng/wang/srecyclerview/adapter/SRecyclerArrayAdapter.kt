@@ -336,10 +336,15 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
             elements = ArrayList()
         }
 
+        dataDiffCallBack.setNewList(ArrayList(elements))
+        val diffResult = DiffUtil.calculateDiff(dataDiffCallBack, false)
+        mData.clear()
+        mData.addAll(elements)
+        diffResult.dispatchUpdatesTo(this)
 
         if (mEventDelegate != null) {
             if (elements.isEmpty()) {//当没有数据时，自动显示空布局
-                mEventDelegate?.showEmpty()
+                if (mNotifyOnChange) notifyItemChanged(0)
             } else {
                 if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
                     mEventDelegate?.showNoMore()
@@ -350,12 +355,6 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
                 if (mNotifyOnChange) notifyItemChanged(0)
             }
         }
-
-        dataDiffCallBack.setNewList(ArrayList(elements))
-        val diffResult = DiffUtil.calculateDiff(dataDiffCallBack, false)
-        mData.clear()
-        mData.addAll(elements)
-        diffResult.dispatchUpdatesTo(this)
     }
 
     /**

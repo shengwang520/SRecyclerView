@@ -6,9 +6,12 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:SRecyclerView:1.0.04'
+* api 'com.github.shengwang520:SRecyclerView:1.0.05'
 
 ## Changelog
+
+### Version:1.0.05
+* 优化空数据显示逻辑
 
 ### Version:1.0.04
 * 修复空布局不显示问题
