@@ -76,7 +76,10 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     val count: Int
         get() = mData.size
 
-    fun getItem(position: Int): T {
+    /**
+     * 获取位置数据
+     */
+    open fun getItem(position: Int): T {
         return mData[position]
     }
 
