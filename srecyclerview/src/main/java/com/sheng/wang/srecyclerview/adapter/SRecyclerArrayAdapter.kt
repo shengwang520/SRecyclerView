@@ -330,6 +330,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     /**
      * 替换数据更新
      * @param collection T :SData 数据实体需要继承SData
+     * @param detectMoves 如果您的旧列表和新列表按相同的约束排序并且项目从不移动（交换位置），您可以禁用移动检测，这需要 O(N^2) 时间，其中 N 是添加、移动、删除项目的数量。
      */
     @SuppressLint("NotifyDataSetChanged")
     @JvmOverloads
