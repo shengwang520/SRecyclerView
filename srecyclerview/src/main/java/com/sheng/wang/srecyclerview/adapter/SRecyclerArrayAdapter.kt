@@ -332,7 +332,8 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
      * @param collection T :SData 数据实体需要继承SData
      */
     @SuppressLint("NotifyDataSetChanged")
-    fun replace(collection: Collection<T>?) {
+    @JvmOverloads
+    fun replace(collection: Collection<T>?, detectMoves: Boolean = false) {
         Logger.d("SDataObserver replace")
         mEventDelegate?.addData(collection?.size ?: 0)
 
@@ -342,7 +343,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         }
 
         dataDiffCallBack.setNewList(ArrayList(elements))
-        val diffResult = DiffUtil.calculateDiff(dataDiffCallBack, false)
+        val diffResult = DiffUtil.calculateDiff(dataDiffCallBack, detectMoves)
         mData.clear()
         mData.addAll(elements)
         diffResult.dispatchUpdatesTo(this)
