@@ -342,7 +342,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
             elements = ArrayList()
         }
 
-        val diffResult = DiffUtil.calculateDiff(DataDiffCallBack(mData, ArrayList(elements)), detectMoves)
+        val diffResult = DiffUtil.calculateDiff(DataDiffCallBack(ArrayList(mData), ArrayList(elements)), detectMoves)
         mData.clear()
         mData.addAll(elements)
         diffResult.dispatchUpdatesTo(this)
