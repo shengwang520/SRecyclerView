@@ -479,14 +479,14 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     /**
      * 是否拦截数据更新逻辑
      */
-    fun isAreContentsTheSameInterceptor(): Boolean {
+    open fun isAreContentsTheSameInterceptor(): Boolean {
         return false
     }
 
     /**
      * 重写数据是否相同拦截器
      */
-    fun onAreContentsTheSame(old: T?, new: T?): Boolean {
+    open fun onAreContentsTheSame(old: T?, new: T?): Boolean {
         return false
     }
 }
