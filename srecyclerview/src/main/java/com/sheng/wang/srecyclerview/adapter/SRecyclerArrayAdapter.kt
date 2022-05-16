@@ -459,7 +459,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
             val new = newList?.get(newItemPosition)
 
             if (isAreContentsTheSameInterceptor()) {
-                return onAreContentsTheSame(new)
+                return onAreContentsTheSame(getItem(oldItemPosition), new)
             }
 
             if (new is SData) {
@@ -479,14 +479,14 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     /**
      * 是否拦截数据更新逻辑
      */
-    protected fun isAreContentsTheSameInterceptor(): Boolean {
+    fun isAreContentsTheSameInterceptor(): Boolean {
         return false
     }
 
     /**
      * 重写数据是否相同拦截器
      */
-    protected fun onAreContentsTheSame(t: T?): Boolean {
+    fun onAreContentsTheSame(old: T?, new: T?): Boolean {
         return false
     }
 }

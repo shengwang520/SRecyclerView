@@ -10,9 +10,13 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Step 2. Add the dependency
 
-* api 'com.github.shengwang520:SRecyclerView:1.0.10'
+* api 'com.github.shengwang520:SRecyclerView:1.0.11'
 
 ## Changelog
+
+### Version:1.0.11
+
+* 调整数据刷新判断逻辑方法
 
 ### Version:1.0.10
 
