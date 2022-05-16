@@ -23,7 +23,6 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     private var headers = ArrayList<SCallback.ItemView>()
     private var footers = ArrayList<SCallback.ItemView>()
     private var mEventDelegate: EventDelegate? = null
-    private val dataDiffCallBack = DataDiffCallBack()
 
     /**
      * Indicates whether or not [.notifyDataSetChanged] must be called whenever
@@ -343,8 +342,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
             elements = ArrayList()
         }
 
-        dataDiffCallBack.setNewList(ArrayList(elements))
-        val diffResult = DiffUtil.calculateDiff(dataDiffCallBack, detectMoves)
+        val diffResult = DiffUtil.calculateDiff(DataDiffCallBack(mData, ArrayList(elements)), detectMoves)
         mData.clear()
         mData.addAll(elements)
         diffResult.dispatchUpdatesTo(this)
@@ -433,10 +431,10 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     /**
      * 数据变化逻辑
      */
-    private inner class DataDiffCallBack : DiffUtil.Callback() {
-        private var newList: List<T>? = null
+    private inner class DataDiffCallBack(var oldList: List<T>?, var newList: List<T>?) : DiffUtil.Callback() {
+
         override fun getOldListSize(): Int {
-            return mData.size
+            return oldList?.size ?: 0
         }
 
         override fun getNewListSize(): Int {
@@ -444,7 +442,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         }
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            val old = getItem(oldItemPosition)
+            val old = oldList?.get(oldItemPosition)
             val new = newList?.get(newItemPosition)
             if (old is SData && new is SData) {
                 return old.dataId() == new.dataId()
@@ -457,36 +455,10 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
          */
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val new = newList?.get(newItemPosition)
-
-            if (isAreContentsTheSameInterceptor()) {
-                return onAreContentsTheSame(getItem(oldItemPosition), new)
-            }
-
             if (new is SData) {
                 return !new.dataChange()
             }
             return false
         }
-
-        /**
-         * 设置数据
-         */
-        fun setNewList(newList: List<T>?) {
-            this.newList = newList
-        }
-    }
-
-    /**
-     * 是否拦截数据更新逻辑
-     */
-    open fun isAreContentsTheSameInterceptor(): Boolean {
-        return false
-    }
-
-    /**
-     * 重写数据是否相同拦截器
-     */
-    open fun onAreContentsTheSame(old: T?, new: T?): Boolean {
-        return false
     }
 }
