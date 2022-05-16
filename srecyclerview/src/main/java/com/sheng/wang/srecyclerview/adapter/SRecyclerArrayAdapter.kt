@@ -445,7 +445,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val old = getItem(oldItemPosition)
-            val new = newList!![newItemPosition]
+            val new = newList?.get(newItemPosition)
             if (old is SData && new is SData) {
                 return old.dataId() == new.dataId()
             }
@@ -456,7 +456,12 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
          * @return 返回false表示数据不同需要进行更新
          */
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            val new = newList!![newItemPosition]
+            val new = newList?.get(newItemPosition)
+
+            if (isAreContentsTheSameInterceptor()) {
+                return onAreContentsTheSame(new)
+            }
+
             if (new is SData) {
                 return !new.dataChange()
             }
@@ -469,5 +474,19 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         fun setNewList(newList: List<T>?) {
             this.newList = newList
         }
+    }
+
+    /**
+     * 是否拦截数据更新逻辑
+     */
+    protected fun isAreContentsTheSameInterceptor(): Boolean {
+        return false
+    }
+
+    /**
+     * 重写数据是否相同拦截器
+     */
+    protected fun onAreContentsTheSame(t: T?): Boolean {
+        return false
     }
 }
