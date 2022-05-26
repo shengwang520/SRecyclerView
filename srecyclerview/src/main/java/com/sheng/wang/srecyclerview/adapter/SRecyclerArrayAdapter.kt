@@ -318,11 +318,11 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
      * 添加所有数据
      */
     fun addAll(collection: Collection<T>?) {
-        mEventDelegate?.addData(collection?.size ?: 0)
+        val dataCount = collection?.size ?: 0
+        mEventDelegate?.addData(if (dataCount < pageSize) 0 else dataCount)
         if (collection != null && collection.isNotEmpty()) {
             synchronized(mLock) { mData.addAll(collection) }
         }
-        val dataCount = collection?.size ?: 0
         if (mNotifyOnChange) notifyItemRangeInserted(headers.size + count - dataCount, dataCount)
     }
 
