@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.orhanobut.logger.Logger
@@ -328,7 +329,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
 
     /**
      * 替换数据更新
-     * @param collection T :SData 数据实体需要继承SData
+     * @param collection T :SData 数据实体需要继承SData 需要重写equals方法判断是否是统一数据
      * @param detectMoves 如果您的旧列表和新列表按相同的约束排序并且项目从不移动（交换位置），您可以禁用移动检测，这需要 O(N^2) 时间，其中 N 是添加、移动、删除项目的数量。
      */
     @SuppressLint("NotifyDataSetChanged")
@@ -345,7 +346,23 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         val diffResult = DiffUtil.calculateDiff(DataDiffCallBack(ArrayList(mData), ArrayList(elements)), detectMoves)
         mData.clear()
         mData.addAll(elements)
-        diffResult.dispatchUpdatesTo(this)
+        diffResult.dispatchUpdatesTo(object : ListUpdateCallback {
+            override fun onInserted(position: Int, count: Int) {
+                notifyItemRangeInserted(headerCount + position, count)
+            }
+
+            override fun onRemoved(position: Int, count: Int) {
+                notifyItemRangeRemoved(headerCount + position, count)
+            }
+
+            override fun onMoved(fromPosition: Int, toPosition: Int) {
+                notifyItemMoved(headerCount + fromPosition, headerCount + toPosition)
+            }
+
+            override fun onChanged(position: Int, count: Int, payload: Any?) {
+                notifyItemRangeChanged(headerCount + position, count, null)
+            }
+        })
 
         if (mEventDelegate != null) {
             if (elements.isEmpty()) {//当没有数据时，自动显示空布局
@@ -444,9 +461,6 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val old = oldList?.get(oldItemPosition)
             val new = newList?.get(newItemPosition)
-            if (old is SData && new is SData) {
-                return old.dataId() == new.dataId()
-            }
             return old == new
         }
 

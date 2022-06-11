@@ -184,7 +184,7 @@ class SRecyclerView @JvmOverloads constructor(
     /**
      * 显示进度
      */
-    private fun showProgress() {
+    fun showProgress() {
         Logger.d("SDataObserver showProgress:" + mProgressView!!.childCount)
         if (mProgressView!!.childCount > 0) {
             hideAll()
