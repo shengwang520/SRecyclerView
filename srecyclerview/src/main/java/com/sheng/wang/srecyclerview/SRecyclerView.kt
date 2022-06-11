@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.orhanobut.logger.Logger
@@ -250,6 +251,13 @@ class SRecyclerView @JvmOverloads constructor(
      */
     fun removeAllOnScrollListeners() {
         mExternalOnScrollListenerList.clear()
+    }
+
+    /**
+     * 设置动画
+     */
+    fun setItemAnimator(animator: ItemAnimator?) {
+        mRecycler?.itemAnimator = animator
     }
 
     /**
