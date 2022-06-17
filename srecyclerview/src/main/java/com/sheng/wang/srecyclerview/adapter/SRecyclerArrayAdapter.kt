@@ -415,6 +415,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
      * @param position The position of the object to remove.
      */
     fun remove(position: Int) {
+        if (position < 0) return
         synchronized(mLock) { mData.removeAt(position) }
         if (mNotifyOnChange) notifyItemRemoved(headers.size + position)
     }
