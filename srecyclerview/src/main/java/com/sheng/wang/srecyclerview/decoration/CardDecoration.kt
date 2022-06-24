@@ -8,7 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
  * @param mPageMargin 卡片间距
  * @param mLeftPageVisibleWidth 卡片第1条数据左边距离
  */
-class CardDecoration(private var mPageMargin: Int, private var mLeftPageVisibleWidth: Int) : RecyclerView.ItemDecoration() {
+class CardDecoration @JvmOverloads constructor(
+    private var mPageMargin: Int,
+    private var mLeftPageVisibleWidth: Int,
+    private var viewWidth: Int,
+    private var topMargin: Int = 0,
+    private var bottomMargin: Int = 0
+) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position = parent.getChildAdapterPosition(view); //获得当前item的position
@@ -24,7 +30,8 @@ class CardDecoration(private var mPageMargin: Int, private var mLeftPageVisibleW
             mPageMargin
         }
         val lp = view.layoutParams as RecyclerView.LayoutParams
-        lp.setMargins(leftMargin, 0, rightMargin, 0)
+        lp.width = viewWidth
+        lp.setMargins(leftMargin, topMargin, rightMargin, bottomMargin)
         view.layoutParams = lp
         super.getItemOffsets(outRect, view, parent, state)
     }
