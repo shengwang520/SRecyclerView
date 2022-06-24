@@ -1,9 +1,8 @@
 package com.sheng.wang.srecyclerview.decoration
 
 import android.graphics.Rect
-import android.util.LayoutDirection
+import android.text.TextUtils
 import android.view.View
-import androidx.core.text.TextUtilsCompat
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
@@ -26,7 +25,7 @@ class CardDecoration @JvmOverloads constructor(
         var leftMargin = 0
         var rightMargin = 0
         if (position == 0) {
-            if (TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == LayoutDirection.RTL) {//界面反转
+            if (isRtl()) {//阿拉伯语
                 leftMargin = mPageMargin
                 rightMargin = mLeftPageVisibleWidth
             } else {
@@ -34,7 +33,7 @@ class CardDecoration @JvmOverloads constructor(
                 rightMargin = mPageMargin
             }
         } else if (position == itemCount - 1) {
-            if (TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == LayoutDirection.RTL) {//界面反转
+            if (isRtl()) {//阿拉伯语
                 leftMargin = mLeftPageVisibleWidth
                 rightMargin = mPageMargin
             } else {
@@ -52,5 +51,14 @@ class CardDecoration @JvmOverloads constructor(
         lp.setMargins(leftMargin, topMargin, rightMargin, bottomMargin)
         view.layoutParams = lp
         super.getItemOffsets(outRect, view, parent, state)
+    }
+
+    /**
+     * 是否是阿拉伯布局
+     */
+    private fun isRtl(): Boolean {
+        val locale = Locale.getDefault()
+        if (TextUtils.equals(locale.language, "ar")) return true
+        return false
     }
 }
