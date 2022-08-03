@@ -371,6 +371,7 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
             } else {
                 if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
                     mEventDelegate?.showNoMore()
+                    stopMore()
                 }
             }
         } else {
