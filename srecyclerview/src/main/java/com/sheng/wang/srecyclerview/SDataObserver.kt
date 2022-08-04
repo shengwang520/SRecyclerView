@@ -18,7 +18,9 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
     override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
         super.onItemRangeChanged(positionStart, itemCount)
         Logger.d("SDataObserver onItemRangeChanged")
-        update()
+        if (!isHeaderFooter(positionStart)) {
+            update()
+        }
     }
 
     override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
