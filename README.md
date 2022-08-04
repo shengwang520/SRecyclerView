@@ -10,17 +10,14 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Step 2. Add the dependency
 
-* api 'com.github.shengwang520:SRecyclerView:1.0.23'
+* api 'com.github.shengwang520:SRecyclerView:1.0.24'
 
 ## Changelog
 
-### Version:1.0.23
+### Version:1.0.24
 
 * 优化下拉刷新逻辑
-
-### Version:1.0.22
-
-* 优化首页数据少出现重复问题
+* 触发下拉刷新，需要在刷新结束时，手动添加停止刷新方法
 
 ### Version:1.0.21
 

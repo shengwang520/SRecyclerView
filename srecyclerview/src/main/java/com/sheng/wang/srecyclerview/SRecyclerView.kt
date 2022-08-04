@@ -153,7 +153,6 @@ class SRecyclerView @JvmOverloads constructor(
         mEmptyView?.visibility = GONE
         mProgressView?.visibility = GONE
         mErrorView?.visibility = GONE
-        mRefreshLayout?.isRefreshing = false
         mRecycler?.visibility = INVISIBLE
     }
 
