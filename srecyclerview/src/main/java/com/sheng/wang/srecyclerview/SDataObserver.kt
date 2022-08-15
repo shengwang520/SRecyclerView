@@ -12,7 +12,12 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
 
     private fun isHeaderFooter(position: Int): Boolean {
         Logger.d("SDataObserver isHeaderFooter:$position |" + adapter!!.headerCount + "|" + adapter!!.count)
-        return adapter != null && (position < adapter!!.headerCount || position >= adapter!!.headerCount + adapter!!.count)
+        if (adapter != null && adapter!!.count > 0) {
+            if (position < adapter!!.headerCount || position >= (adapter!!.headerCount + adapter!!.count)) {
+                return true
+            }
+        }
+        return false
     }
 
     override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
