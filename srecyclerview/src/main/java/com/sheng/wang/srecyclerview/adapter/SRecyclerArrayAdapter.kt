@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger
 
 /**
  * 数据通用适配器
- * @param pageSize 列表分页时的每页参数，当数据小于pageSize时，replace()更新数据会显示数据加载完毕布局，默认20每页
+ * @param pageSize 列表分页时的每页参数，当数据小于pageSize时，replace()更新数据会触发获取下一页回调，默认20每页
  */
 abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     var context: Context? = null, var pageSize: Int = 20
@@ -369,9 +369,8 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
                 showEmpty()
                 if (mNotifyOnChange) notifyDataSetChanged()
             } else {
-                if (elements.size < pageSize) {//当数据小于每页时，会显示数据加载完毕布局
-                    mEventDelegate?.showNoMore()
-                    stopMore()
+                if (elements.size < pageSize) {//当数据小于每页时，会自动获取下一页
+                    startMore()
                 }
             }
         } else {
