@@ -2,6 +2,7 @@ package com.sheng.wang.srecyclerview.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -108,9 +109,6 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
 
     private fun onBindItemViewHolder(holder: BaseViewHolder<T>, position: Int) {
         val t = getItem(position)
-        if (t is SData) {
-            t.change(false)
-        }
         holder.bindData(t, position)
     }
 
@@ -462,18 +460,20 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val old = oldList?.get(oldItemPosition)
             val new = newList?.get(newItemPosition)
+            if (old is SData && new is SData) {
+                return TextUtils.equals(old.dataId(), new.dataId())
+            }
             return old == new
         }
 
         /**
-         * @return 返回false表示数据不同需要进行更新
+         * @return 返回false表示数据不同需要进行更新 通过equals实现
          */
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            val old = oldList?.get(oldItemPosition)
             val new = newList?.get(newItemPosition)
-            if (new is SData) {
-                return !new.dataChange()
-            }
-            return false
+            return old == new
         }
     }
+
 }

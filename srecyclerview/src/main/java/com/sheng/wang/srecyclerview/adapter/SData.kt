@@ -6,12 +6,7 @@ package com.sheng.wang.srecyclerview.adapter
 interface SData {
 
     /**
-     * 数据是否变化
+     * 返回数据唯一标识
      */
-    fun dataChange(): Boolean
-
-    /**
-     * 修改数据变化
-     */
-    fun change(change: Boolean)
+    fun dataId(): String?
 }

@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AppFrame" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/SRecyclerView" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/choosePhoto" vcs="Git" />
   </component>
 </project>

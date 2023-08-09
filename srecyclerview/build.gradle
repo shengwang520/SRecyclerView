@@ -11,7 +11,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.shengwang520'
                 artifactId = 'SRecyclerView'
-                version = "1.0.28"
+                version = "1.0.29"
             }
         }
     }
@@ -23,6 +23,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 33
+        versionCode 29
+        versionName "1.0.29"
 
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -38,9 +40,9 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    api 'androidx.core:core-ktx:1.10.0'
+    api 'androidx.appcompat:appcompat:1.6.1'
+    api 'com.google.android.material:material:1.9.0'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     api 'com.orhanobut:logger:1.4'//打印数据框架
 }
