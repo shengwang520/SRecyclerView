@@ -10,11 +10,11 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Step 2. Add the dependency
 
-* api 'com.github.shengwang520:SRecyclerView:1.0.30'
+* api 'com.github.shengwang520:SRecyclerView:1.0.31'
 
 ## Changelog
 
-### Version 1.0.30
+### Version 1.0.31
 
 * 调整SData接口，添加dataId方法进行判断是否为同一条数据，默认使用equals实现
 * 修改通过equals判断数据是否变更
