@@ -160,6 +160,8 @@ class SRecyclerView @JvmOverloads constructor(
      * 显示错误布局
      */
     fun showError() {
+        //显示错误布局-清楚数据
+        (mRecycler?.adapter as? SRecyclerArrayAdapter<*>)?.clear()
         if (mErrorView!!.childCount > 0) {
             hideAll()
             mErrorView!!.visibility = VISIBLE

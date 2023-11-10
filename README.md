@@ -14,6 +14,10 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Changelog
 
+### Version 1.0.32
+
+* 新增显示错误布局时同步清空数据
+
 ### Version 1.0.31
 
 * 调整SData接口，添加dataId方法进行判断是否为同一条数据，默认使用equals实现
