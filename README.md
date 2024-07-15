@@ -10,9 +10,13 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Step 2. Add the dependency
 
-* api 'com.github.shengwang520:SRecyclerView:1.0.32'
+* api 'com.github.shengwang520:SRecyclerView:1.1.00'
 
 ## Changelog
+
+### Version 1.1.00
+
+* 升级gradle版本为8.5.0
 
 ### Version 1.0.32
 
