@@ -14,6 +14,10 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ## Changelog
 
+### Version 1.1.01
+
+* 调整库core-ktx:1.13.1
+
 ### Version 1.1.00
 
 * 代码结构优化，采用Ktx实现
