@@ -1,7 +1,6 @@
 package com.sheng.wang.srecyclerview
 
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
-import com.orhanobut.logger.Logger
 import com.sheng.wang.srecyclerview.adapter.SRecyclerArrayAdapter
 
 /**
@@ -11,7 +10,6 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
     private var adapter: SRecyclerArrayAdapter<*>? = null
 
     private fun isHeaderFooter(position: Int): Boolean {
-        Logger.d("SDataObserver isHeaderFooter:$position |" + adapter!!.headerCount + "|" + adapter!!.count)
         if (adapter != null && (adapter!!.headerCount > 0 || adapter!!.footerCount > 0)) {
             if (position < adapter!!.headerCount || position >= (adapter!!.headerCount + adapter!!.count)) {
                 return true
@@ -22,7 +20,6 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
 
     override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
         super.onItemRangeChanged(positionStart, itemCount)
-        Logger.d("SDataObserver onItemRangeChanged")
         if (!isHeaderFooter(positionStart)) {
             update()
         }
@@ -30,7 +27,6 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
 
     override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
         super.onItemRangeInserted(positionStart, itemCount)
-        Logger.d("SDataObserver onItemRangeInserted")
         if (adapter!!.count > 0 || !isHeaderFooter(positionStart)) {
             update()
         }
@@ -38,19 +34,16 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
 
     override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
         super.onItemRangeRemoved(positionStart, itemCount)
-        Logger.d("SDataObserver onItemRangeRemoved")
         update()
     }
 
     override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
         super.onItemRangeMoved(fromPosition, toPosition, itemCount)
-        Logger.d("SDataObserver onItemRangeMoved")
         update() //header&footer不会有移动操作
     }
 
     override fun onChanged() {
         super.onChanged()
-        Logger.d("SDataObserver onChanged")
         update() //header&footer不会引起changed
     }
 
@@ -63,7 +56,6 @@ class SDataObserver(private val recyclerView: SRecyclerView) : AdapterDataObserv
         } else {
             recyclerView.adapter!!.itemCount
         }
-        Logger.d("SDataObserver update:$count")
         if (count == 0) {
             recyclerView.showEmpty()
             adapter?.showEmpty()

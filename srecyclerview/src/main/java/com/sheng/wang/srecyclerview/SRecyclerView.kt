@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.orhanobut.logger.Logger
 import com.sheng.wang.srecyclerview.adapter.SRecyclerArrayAdapter
 
 /**
@@ -174,7 +173,6 @@ class SRecyclerView @JvmOverloads constructor(
      * 显示空布局
      */
     fun showEmpty() {
-        Logger.d("SDataObserver showEmpty:" + mEmptyView!!.childCount)
         if (mEmptyView!!.childCount > 0) {
             hideAll()
             mEmptyView!!.visibility = VISIBLE
@@ -187,7 +185,6 @@ class SRecyclerView @JvmOverloads constructor(
      * 显示进度
      */
     fun showProgress() {
-        Logger.d("SDataObserver showProgress:" + mProgressView!!.childCount)
         if (mProgressView!!.childCount > 0) {
             hideAll()
             mProgressView!!.visibility = VISIBLE

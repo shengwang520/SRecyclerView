@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.orhanobut.logger.Logger
 
 
 /**
@@ -333,7 +332,6 @@ abstract class SRecyclerArrayAdapter<T> @JvmOverloads constructor(
     @SuppressLint("NotifyDataSetChanged")
     @JvmOverloads
     fun replace(collection: Collection<T>?, detectMoves: Boolean = false) {
-        Logger.d("SDataObserver replace")
         mEventDelegate?.addData(collection?.size ?: 0)
 
         var elements = collection

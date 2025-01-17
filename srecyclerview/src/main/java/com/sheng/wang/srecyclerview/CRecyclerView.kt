@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
 import com.sheng.wang.srecyclerview.adapter.SCallback
 import com.sheng.wang.srecyclerview.adapter.SRecyclerArrayAdapter
 
@@ -36,7 +35,6 @@ class CRecyclerView @JvmOverloads constructor(
                             onLoadMoreListener?.onMoreShow()
                         }
                     } else if (adapter is SRecyclerArrayAdapter<*>) {
-                        Logger.d("load more onScrollStateChanged:$lastVisibleItem | ${adapter.itemCount}")
                         if (lastVisibleItem + adapter.footerCount + 1 >= adapter.getItemCount()) {
                             adapter.startMore()
                         }
@@ -52,7 +50,6 @@ class CRecyclerView @JvmOverloads constructor(
                         lastVisibleItem = manager.findLastVisibleItemPosition()
                     }
                 }
-                Logger.d("load more onScrolled:$lastVisibleItem")
             }
         })
     }

@@ -16,7 +16,9 @@ RecyclerView重新封装,实现通用的数据适配器，上拉加载，下拉�
 
 ### Version 1.1.00
 
+* 代码结构优化，采用Ktx实现
 * 升级gradle版本为8.5.0
+* 移除logger sdk
 
 ### Version 1.0.32
 

@@ -22,8 +22,8 @@ class CardDecoration @JvmOverloads constructor(
         val position = parent.getChildAdapterPosition(view); //获得当前item的position
         val itemCount = parent.adapter?.itemCount ?: 0 //获得item的数量
 
-        var leftMargin = 0
-        var rightMargin = 0
+        val leftMargin: Int
+        val rightMargin: Int
         if (position == 0) {
             if (isRtl()) {//阿拉伯语
                 leftMargin = mPageMargin
@@ -58,7 +58,6 @@ class CardDecoration @JvmOverloads constructor(
      */
     private fun isRtl(): Boolean {
         val locale = Locale.getDefault()
-        if (TextUtils.equals(locale.language, "ar")) return true
-        return false
+        return TextUtils.equals(locale.language, "ar")
     }
 }

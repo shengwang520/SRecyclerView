@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.orhanobut.logger.Logger
 
 /**
  * 事件代理实现
@@ -20,7 +19,6 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
     private var status = STATUS_INITIAL
 
     override fun addData(length: Int) {
-        Logger.d("eventDelegate addData:$length hasMore:$hasMore")
         if (hasMore) {
             if (length == 0) {
                 //当添加0个时，认为已结束加载到底
@@ -43,11 +41,9 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
         status = STATUS_INITIAL
         footer.hide()
         isLoadingMore = false
-        Logger.d("load more clear:$hasMore | $isLoadingMore | $status")
     }
 
     override fun startLoadMore() {
-        Logger.d("load more startLoadMore:$hasMore | $isLoadingMore | $status")
         if (hasMore && !isLoadingMore && status != STATUS_NO_MORE) {
             isLoadingMore = false
             footer.showMore()
@@ -179,6 +175,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
                     }
                     view?.setOnClickListener { onMoreViewClicked() }
                 }
+
                 ShowNoMore -> {
                     if (noMoreViewRes != 0) {
                         view = LayoutInflater.from(parent!!.context)
@@ -186,6 +183,7 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
                     }
                     view?.setOnClickListener { onNoMoreViewClicked() }
                 }
+
                 ShowEmpty -> {
                     if (emptyViewRes != 0) {
                         view = LayoutInflater.from(parent!!.context)
@@ -209,7 +207,6 @@ class DefaultEventDelegate(private val adapter: SRecyclerArrayAdapter<*>) : Even
          * 显示没有数据
          */
         fun showNoMore() {
-            Logger.d("SDataObserver showNoMore")
             skipNoMore = true
             flag = ShowNoMore
             if (adapter.itemCount > 0) adapter.notifyItemChanged(adapter.itemCount - 1)
